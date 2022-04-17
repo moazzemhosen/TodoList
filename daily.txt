@@ -1,0 +1,54 @@
+// import logo from './logo.svg';
+import { useState } from 'react';
+import './App.css';
+
+function App(data1) {
+const data="hello send from parent" //for sending data to child
+
+
+const [message,setMessage]=useState("");
+
+const cb=(value)=>{
+   console.log( "Got Data::::",value)
+   setMessage(value)
+}
+
+
+  return (
+    <div className="App">
+      {/* send as a parameter  to child from parent */}
+      {/* <First data1={data}/>   */}
+      <First message={message}/> 
+
+
+
+      <Second dataFn={cb} />
+
+      
+    </div>
+  );
+}
+
+// const First=({data1})=>{
+//   console.log({data1}) // data is available here
+//   return <div>This is First Child:::::::::{data1}</div>
+// }
+
+const First=({message})=>{
+  console.log("Got data from second sibling",message) // data is available here
+  return <div>This is First Child::{message}</div>
+}
+
+
+const Second=({dataFn})=>{ 
+  const value="this is second child Data"
+ 
+     return <div>This is second child::
+       <button onClick={()=>{
+          dataFn(value);
+       }}>send</button>
+     </div>
+} 
+
+
+export default App;
